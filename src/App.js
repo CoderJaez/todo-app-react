@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState } from "react";
+import Header from "./components/Header";
+import Todos from "./components/Todos";
+import AddTodo from "./components/AddTodo";
 function App() {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "Create WebApp",
+    },
+    {
+      id: 2,
+      text: "Create Mobile",
+    },
+    {
+      id: 3,
+      text: "Time to sleep",
+    },
+  ]);
+
+  const deleteTodo = (id) => {
+    console.log("Delete: " + id);
+  };
+
+  const addTodo = (text) => {
+    const id = todos.length + 1;
+    const newTodo = { id, text };
+    setTodos([...todos, newTodo]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <AddTodo onAdd={addTodo} />
+      <Todos todos={todos} onDelete={deleteTodo} />
     </div>
   );
 }
